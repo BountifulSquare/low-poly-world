@@ -11,7 +11,6 @@ class Terrain {
         })
 
         this._mesh = new THREE.Mesh(this._geometry, this._material)
-        // console.log(this._geometry)
     }
 
     _createGeometry() {
@@ -48,32 +47,6 @@ class Terrain {
         geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
         geometry.computeVertexNormals()
         return geometry
-    }
-
-    _vertexShader() {
-        return `
-
-            varying vec3 v_normal;
-            varying vec3 v_vertexViewSpace;
-
-            void main() {
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                v_normal = normal;
-                v_vertexViewSpace = vec3(modelMatrix * vec4(position, 1.0));
-            }
-        `
-    }
-
-    _fragmentShader() {
-        return `
-
-            varying vec3 v_normal;
-            varying vec3 v_vertexViewSpace;
-
-            void main() {
-                gl_FragColor = vec4(v_normal, 1.0);
-            }
-        `
     }
 
     get Mesh() {
